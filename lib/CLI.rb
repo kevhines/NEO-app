@@ -9,8 +9,9 @@ class CLI
 
     def get_date
         puts "Enter a date to see what Asteroids are flying by Earth on that day (mm-dd-yyyy):"
-        input = gets.chomp
-        puts input
+        date = gets.chomp
+        puts date
+        API.get_passes_for_date(date)
     end
 
 end
