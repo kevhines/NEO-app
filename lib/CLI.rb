@@ -75,7 +75,6 @@ class CLI
         else
             passes = Pass.by_date(date)
         end
-
         passes.each_with_index do |pass,i|
              #need to limit by date
              #binding.pry
@@ -85,7 +84,10 @@ class CLI
          puts "Press Any key for Options"
          STDIN.getch
          self.option_menu(date)
-
-
     end
+
+    def choose_asteroid
+        input = gets.chomp        
+    end
+
 end
