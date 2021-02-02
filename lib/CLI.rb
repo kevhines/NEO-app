@@ -9,23 +9,26 @@ class CLI
     end
 
     def get_date        
-        date = gets.chomp
-        checks_date(date)
+        input = gets.chomp
+        date = checks_date(input)
         puts date
         API.get_passes_for_date(date)
     end
 
     def checks_date(date)
         new_date = nil
-        if date.split(/\/|-/).size == 3
-            new_date = Date.parse(date.split(/\/|-/)[2] + "-" + date.split(/\/|-/)[0] + "-" + date.split(/\/|-/)[1])
-        end
-        if date.split(/\/|-/).size != 3 || !new_date
+        if date.split(/\/|-/).size == 3 # && date.tr("/-","").scan(/\D/).empty?
+            begin
+                new_date = Date.parse(date.split(/\/|-/)[2] + "-" + date.split(/\/|-/)[0] + "-" + date.split(/\/|-/)[1])
+                rescue ArgumentError
+                    new_date = nil
+                end
+            end
+        if !new_date
             puts "Invalid Date Format. Try Again (mm-dd-yyyy):"
             self.get_date
         end
         #binding.pry
-        new_date
+        new_date.strftime('%Y-%m-%d')
     end
-
 end
