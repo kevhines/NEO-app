@@ -18,12 +18,24 @@ class Pass
         @@all
     end
 
-    def self.all_with_date(date)
+    def self.by_date(date, sort = "all")
         date = "2015-09-07" # for now
-        self.all.select do |pass|
+        passes = self.all.select do |pass|
             pass.date == date
         end
-            
+        if sort != "all"
+            sorted = passes.sort_by do |pass|
+                -pass.distance.to_f
+            end
+            sorted = sorted[0...4]
+        else
+            sorted = passes
+        end
+        binding.pry
+        sorted
+    end
+
+    def self.sorted_by_date(date,sort = "all")
     end
 
 

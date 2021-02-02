@@ -10,4 +10,6 @@ class Asteroid
         end
     end
 
+    
+
 end
