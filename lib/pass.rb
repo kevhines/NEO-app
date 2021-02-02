@@ -18,24 +18,28 @@ class Pass
         @@all
     end
 
-    def self.by_date(date, sort = "all")
+    def self.by_date(date)
         date = "2015-09-07" # for now
-        passes = self.all.select do |pass|
+        self.all.select do |pass|
             pass.date == date
         end
-        if sort != "all"
+       
+    end
+
+    def self.sorted_list(date,sort = "all")
+        passes = self.by_date(date)
+        if sort == "closest"
             sorted = passes.sort_by do |pass|
-                -pass.distance.to_f
+                pass.distance.to_f
             end
-            sorted = sorted[0...4]
+        elsif sort == "biggest"
+            sorted = passes.sort_by do |pass|
+                -avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
+            end           
         else
             sorted = passes
         end
-        binding.pry
-        sorted
-    end
-
-    def self.sorted_by_date(date,sort = "all")
+        sorted[0...4]
     end
 
 

@@ -69,7 +69,14 @@ class CLI
 
     def print_passes(date, sort = "all")
         puts "name - average diameter - distance from Earth"
-        Pass.by_date(date, sort).each_with_index do |pass,i|
+        passes = []
+        if sort == "biggest" || sort == "closest"
+            passes = Pass.sorted_list(date, sort)
+        else
+            passes = Pass.by_date(date)
+        end
+
+        passes.each_with_index do |pass,i|
              #need to limit by date
              #binding.pry
              avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
