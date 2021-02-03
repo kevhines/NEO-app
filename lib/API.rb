@@ -4,7 +4,7 @@ class API
     @@api_key = "9o66xnjOVyXZJJa1cZUlGPQTsgDFB7oiA2VEIszG"
     
     def self.get_passes_for_date(date)
-        date = "2015-09-07" # for now
+      #  date = "2015-09-07" # for now
         url = "https://api.nasa.gov/neo/rest/v1/feed?start_date=#{date}&end_date=#{date}&api_key=#{@@api_key}"
         response = HTTParty.get(url)
         #loop through data and create all the passes
@@ -22,8 +22,7 @@ class API
         url = "https://api.nasa.gov/neo/rest/v1/neo/#{asteroid.id}?api_key=#{@@api_key}"
         response = HTTParty.get(url)
         #loop through data and create all the passes
-        pass_hash = {}
-        nextvisit =  response["close_approach_data"].detect {|pass| Date.parse(pass["close_approach_date"]) > Date.today && pass["orbiting_body"] == "Earth" }
+        nextvisit =  response["close_approach_data"].select {|pass| Date.parse(pass["close_approach_date"]) > Date.today && pass["orbiting_body"] == "Earth" }.sort_by {|future_visits| Date.parse(future_visits["close_approach_date"]) }[0]
        # formatted_date = nextvisit["close_approach_date"]
        # Date.parse(input.split(/\/|-/)[2] + "-" + input.split(/\/|-/)[0] + "-" + input.split(/\/|-/)[1])
         pass_hash = {:pass_date => nextvisit["close_approach_date"], :velocity => nextvisit["relative_velocity"]["miles_per_hour"], :distance => nextvisit["miss_distance"]["miles"] }

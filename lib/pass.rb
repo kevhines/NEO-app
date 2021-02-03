@@ -19,7 +19,7 @@ class Pass
     end
 
     def self.by_date(date)
-        date = "2015-09-07" # for now
+     #   date = "2015-09-07" # for now
         self.all.select do |pass|
             pass.pass_date == date
         end
