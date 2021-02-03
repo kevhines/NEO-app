@@ -15,19 +15,20 @@ class API
             pass_hash = {:pass_date => date, :velocity => pass["close_approach_data"][0]["relative_velocity"]["miles_per_hour"], :distance => pass["close_approach_data"][0]["miss_distance"]["miles"] }
             asteroid = Asteroid.new(asteroid_hash)
             pass = Pass.new(asteroid, pass_hash)
-           # binding.pry
         end
     end
 
-    def self.get_asteroid_visits(asteroid_id)
-        url = "https://api.nasa.gov/neo/rest/v1/neo/#{asteroid_id}?api_key=#{@@api_key}"
+    def self.get_asteroid_visits(asteroid)
+        url = "https://api.nasa.gov/neo/rest/v1/neo/#{asteroid.id}?api_key=#{@@api_key}"
         response = HTTParty.get(url)
         #loop through data and create all the passes
         pass_hash = {}
         nextvisit =  response["close_approach_data"].detect {|pass| Date.parse(pass["close_approach_date"]) > Date.today && pass["orbiting_body"] == "Earth" }
+       # formatted_date = nextvisit["close_approach_date"]
+       # Date.parse(input.split(/\/|-/)[2] + "-" + input.split(/\/|-/)[0] + "-" + input.split(/\/|-/)[1])
         pass_hash = {:pass_date => nextvisit["close_approach_date"], :velocity => nextvisit["relative_velocity"]["miles_per_hour"], :distance => nextvisit["miss_distance"]["miles"] }
-binding.pry
-pass_hash
+        pass = Pass.new(asteroid, pass_hash)
+
     end
 
 end

@@ -13,11 +13,6 @@ class Asteroid
         @@all << self
     end
 
-    # def get_next_visit
-    #     API.get_asteroid_visits(asteroid_id)
-        
-    # end
-
     def self.all
         @@all
     end

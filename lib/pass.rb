@@ -20,7 +20,6 @@ class Pass
 
     def self.by_date(date)
         date = "2015-09-07" # for now
-      #  binding.pry
         self.all.select do |pass|
             pass.pass_date == date
         end
