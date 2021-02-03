@@ -21,7 +21,7 @@ class CLI
         end
         @date = checks_date(input)
         puts "date entered, and ignored for now: " + self.date
-        API.get_passes_for_date(self.date) # unless Pass.exist_by_date(self.date)
+        API.get_passes_for_date(self.date) unless Pass.exist_by_date(self.date)
         self.option_menu(true)
     end
 

@@ -14,7 +14,7 @@ class API
             asteroid_hash = {:id => pass["id"], :name => pass["name"], :magnitude => pass["absolute_magnitude_h"] , :diameter_min => pass["estimated_diameter"]["miles"]["estimated_diameter_min"], :diameter_max => pass["estimated_diameter"]["miles"]["estimated_diameter_max"], :hazardous => pass["is_potentially_hazardous_asteroid"], :sentry_object => pass["is_sentry_object"] }
             pass_hash = {:pass_date => date, :velocity => pass["close_approach_data"][0]["relative_velocity"]["miles_per_hour"], :distance => pass["close_approach_data"][0]["miss_distance"]["miles"] }
             asteroid = Asteroid.new(asteroid_hash)
-            pass = Pass.new(asteroid, pass_hash)
+            pass = Pass.new(true, asteroid, pass_hash)
         end
     end
 
@@ -26,7 +26,7 @@ class API
        # formatted_date = nextvisit["close_approach_date"]
        # Date.parse(input.split(/\/|-/)[2] + "-" + input.split(/\/|-/)[0] + "-" + input.split(/\/|-/)[1])
         pass_hash = {:pass_date => nextvisit["close_approach_date"], :velocity => nextvisit["relative_velocity"]["miles_per_hour"], :distance => nextvisit["miss_distance"]["miles"] }
-        pass = Pass.new(asteroid, pass_hash)
+        pass = Pass.new(false, asteroid, pass_hash)
 
     end
 

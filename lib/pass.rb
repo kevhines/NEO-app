@@ -5,25 +5,30 @@ class Pass
     # asteroid values: :id, :name, :magnitude, :diameter_min, :diameter_max, :hazardous, :sentry_object
 
     @@all = []
+    @@all_searches = []
 
-    def initialize (asteroid, pass_hash)
+    def initialize (full_date_search, asteroid, pass_hash)
         self.asteroid = asteroid
         pass_hash.each do |key, value|
             self.send("#{key}=", value) if self.respond_to?("#{key}=")
         end  
         @@all << self
+        @@all_searches << self.pass_date if full_date_search && !self.class.exist_by_date(self.pass_date)
     end
 
     def self.all
         @@all
     end
 
+    def self.all_searches
+        @@all_searches
+    end
+
     def self.exist_by_date(date)
-        self.all.any? { |pass| pass.pass_date == date }
+        self.all_searches.include?(date)
     end
 
     def self.by_date(date)
-     #   date = "2015-09-07" # for now
         self.all.select do |pass|
             pass.pass_date == date
         end
