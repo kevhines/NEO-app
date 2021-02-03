@@ -1,7 +1,7 @@
 class Pass
 
     #each Pass connects to an Asteroid object with date, speed, and distance
-    attr_accessor :asteroid, :date, :velocity, :distance
+    attr_accessor :asteroid, :pass_date, :velocity, :distance
     # asteroid values: :id, :name, :magnitude, :diameter_min, :diameter_max, :hazardous, :sentry_object
 
     @@all = []
@@ -20,8 +20,9 @@ class Pass
 
     def self.by_date(date)
         date = "2015-09-07" # for now
+      #  binding.pry
         self.all.select do |pass|
-            pass.date == date
+            pass.pass_date == date
         end
        
     end

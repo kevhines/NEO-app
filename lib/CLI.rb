@@ -1,6 +1,12 @@
 class CLI
     #this class will interface wih the user
 
+    @date = Date.today.strftime('%Y-%m-%d')
+    @sort = "all"
+
+    attr_reader :date 
+    attr_accessor :sort
+
     def run_app
         puts "Welcome to the NEO app"
         puts "NEO stands for Near Earth Objects. In this case we are talking about Asteroids."
@@ -10,17 +16,17 @@ class CLI
 
     def get_date        
         input = gets.chomp
-        date = checks_date(input)
-        puts "date entered, and ignored for now: " + date
-        API.get_passes_for_date(date)
-        self.option_menu(date,true)
+        @date = checks_date(input)
+        puts "date entered, and ignored for now: " + self.date
+        API.get_passes_for_date(self.date)
+        self.option_menu(true)
     end
 
-    def checks_date(date)
+    def checks_date(input)
         new_date = nil
-        if date.split(/\/|-/).size == 3 # && date.tr("/-","").scan(/\D/).empty?
+        if input.split(/\/|-/).size == 3 
             begin
-                new_date = Date.parse(date.split(/\/|-/)[2] + "-" + date.split(/\/|-/)[0] + "-" + date.split(/\/|-/)[1])
+                new_date = Date.parse(input.split(/\/|-/)[2] + "-" + input.split(/\/|-/)[0] + "-" + input.split(/\/|-/)[1])
                 rescue ArgumentError
                     new_date = nil
                 end
@@ -34,10 +40,10 @@ class CLI
     end
 
 
-    def option_menu(date,first = false)
-        puts "You are viewing Near Earth Asteroids from #{date}"
-        #binding.pry
-        puts "there are #{Pass.by_date(date).count} asteroids from that day."
+    def option_menu(first = false)
+        puts "You are viewing Near Earth Asteroids from #{self.date}"
+       # binding.pry
+        puts "there are #{Pass.by_date(self.date).count} asteroids from that day."
         puts "Would you like to:"
         puts "1. See data for the 5 biggest asteroids?"
         puts "2. See data for the 5 closest asteroids?"
@@ -48,32 +54,33 @@ class CLI
         input = gets.chomp
         case input
         when "1"
-            self.print_passes(date, "biggest")
+            self.sort = "biggest"
         when "2"
-            self.print_passes(date, "closest")
+            self.sort = "closest"
         when "3"
-            self.print_passes(date, "all")
+            self.sort = "all"
         when "4"
             puts "Enter a new date (mm-dd-yyyy):"
             self.get_date
         when "5"
             #this functionality is not built yet
-            puts "Please Enter the number of the asteroid you'd like to check:" unless first
-            self.get_date #for now eventually choose_asteroid
+            puts "Please Enter the number of the asteroid you'd like to check:" # unless first
+            self.choose_asteroid
         else
             puts "Please enter one of the options listed above:"
-            self.option_menu(date)
+            self.option_menu(first)
         end
+            self.print_passes
     end
 
 
-    def print_passes(date, sort = "all")
+    def print_passes
         puts "name - average diameter - distance from Earth"
         passes = []
-        if sort == "biggest" || sort == "closest"
-            passes = Pass.sorted_list(date, sort)
+        if self.sort == "biggest" || self.sort == "closest"
+            passes = Pass.sorted_list(self.date, self.sort)
         else
-            passes = Pass.by_date(date)
+            passes = Pass.by_date(self.date)
         end
         passes.each_with_index do |pass,i|
              #need to limit by date
@@ -83,11 +90,17 @@ class CLI
          end
          puts "Press Any key for Options"
          STDIN.getch
-         self.option_menu(date)
+         self.option_menu
     end
 
-    def choose_asteroid
-        input = gets.chomp        
+    def choose_asteroid(sort = "all")
+        input = gets.chomp  
+        if sort == "all"
+            asteroid = Pass.by_date(self.date)[input.to_i + 1].asteroid
+        else
+            asteroid = Pass.sorted_list(self.date, self.sort)[input.to_i + 1].asteroid
+        end
+        binding.pry
     end
 
 end
