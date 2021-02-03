@@ -19,4 +19,15 @@ class API
         end
     end
 
+    def self.get_asteroid_visits(asteroid_id)
+        url = "https://api.nasa.gov/neo/rest/v1/neo/#{asteroid_id}?api_key=#{@@api_key}"
+        response = HTTParty.get(url)
+        #loop through data and create all the passes
+        pass_hash = {}
+        nextvisit =  response["close_approach_data"].detect {|pass| Date.parse(pass["close_approach_date"]) > Date.today && pass["orbiting_body"] == "Earth" }
+        pass_hash = {:pass_date => nextvisit["close_approach_date"], :velocity => nextvisit["relative_velocity"]["miles_per_hour"], :distance => nextvisit["miss_distance"]["miles"] }
+binding.pry
+pass_hash
+    end
+
 end

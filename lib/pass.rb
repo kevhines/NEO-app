@@ -40,7 +40,7 @@ class Pass
         else
             sorted = passes
         end
-        sorted[0...4]
+        sorted[0...5]
     end
 
 

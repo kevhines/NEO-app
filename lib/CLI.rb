@@ -79,11 +79,11 @@ class CLI
         passes = []
         if self.sort == "biggest" || self.sort == "closest"
             passes = Pass.sorted_list(self.date, self.sort)
+         #   binding.pry
         else
             passes = Pass.by_date(self.date)
         end
         passes.each_with_index do |pass,i|
-             #need to limit by date
              #binding.pry
              avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
              puts "#{i+1}. #{pass.asteroid.name} - #{avg_diamater.round(3)} miles - #{pass.distance.to_f.round()} miles "   
@@ -93,14 +93,22 @@ class CLI
          self.option_menu
     end
 
-    def choose_asteroid(sort = "all")
+    def choose_asteroid
         input = gets.chomp  
-        if sort == "all"
-            asteroid = Pass.by_date(self.date)[input.to_i + 1].asteroid
+        if self.sort == "all"
+            asteroid = Pass.by_date(self.date)[input.to_i - 1].asteroid
         else
-            asteroid = Pass.sorted_list(self.date, self.sort)[input.to_i + 1].asteroid
+            asteroid = Pass.sorted_list(self.date, self.sort)[input.to_i - 1].asteroid
         end
-        binding.pry
+      #  binding.pry
+        self.print_asteroid(asteroid)
+    end
+
+    def print_asteroid(asteroid)
+        #asteroid.get_next_visit
+        API.get_asteroid_visits(asteroid.id)
+        puts "nice work"
+        self.option_menu
     end
 
 end
