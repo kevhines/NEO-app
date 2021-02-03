@@ -18,6 +18,10 @@ class Pass
         @@all
     end
 
+    def self.exist_by_date(date)
+        self.all.any? { |pass| pass.pass_date == date }
+    end
+
     def self.by_date(date)
      #   date = "2015-09-07" # for now
         self.all.select do |pass|
