@@ -6,6 +6,7 @@ class Pass
 
     @@all = []
     @@all_searches = []
+    @@next_visitation = []
 
     def initialize (full_date_search, asteroid, pass_hash)
         self.asteroid = asteroid
@@ -13,7 +14,8 @@ class Pass
             self.send("#{key}=", value) if self.respond_to?("#{key}=")
         end  
         @@all << self
-        @@all_searches << self.pass_date if full_date_search && !self.class.exist_by_date(self.pass_date)
+        @@all_searches << self.pass_date if full_date_search == "date_search" && !self.class.exist_by_date(self.pass_date)
+        @@next_visitation << self.asteroid if full_date_search == "next_visit"
     end
 
     def self.all
@@ -24,8 +26,24 @@ class Pass
         @@all_searches
     end
 
+    def self.next_visitation
+        @@next_visitation
+    end
+
     def self.exist_by_date(date)
         self.all_searches.include?(date)
+    end
+
+    def self.next_visit_exists?(asteroid)
+        next_visit = nil
+        if self.next_visitation.include?(asteroid)
+            next_visit = self.all.find do |pass|
+                #might need to sort and pick earliest?
+                pass.asteroid == asteroid
+                Date.parse(pass.pass_date) > Date.today
+            end
+        end
+        next_visit
     end
 
     def self.by_date(date)
