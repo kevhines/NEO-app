@@ -14,9 +14,8 @@ class Asteroid
     end
 
     def self.find_by_id(asteroid_id)
-        self.all.any? { |asteroid| asteroid.id == asteroid_id }
+        self.all.find { |asteroid| asteroid.id == asteroid_id }
     end
-
 
     def self.all
         @@all

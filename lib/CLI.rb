@@ -110,8 +110,6 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        binding.pry
-        
         puts "\nAsteroid Designated #{next_visit.asteroid.name} will next fly by Earth on #{next_visit.pass_date} traveling at a speed of #{next_visit.velocity} mph. It will miss Earth by a distance of #{next_visit.distance} miles.\n\n"
         self.option_menu
     end

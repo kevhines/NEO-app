@@ -13,7 +13,7 @@ class API
         response["near_earth_objects"][date].each do |pass|  
             asteroid_hash = {:id => pass["id"], :name => pass["name"], :magnitude => pass["absolute_magnitude_h"] , :diameter_min => pass["estimated_diameter"]["miles"]["estimated_diameter_min"], :diameter_max => pass["estimated_diameter"]["miles"]["estimated_diameter_max"], :hazardous => pass["is_potentially_hazardous_asteroid"], :sentry_object => pass["is_sentry_object"] }
             pass_hash = {:pass_date => date, :velocity => pass["close_approach_data"][0]["relative_velocity"]["miles_per_hour"], :distance => pass["close_approach_data"][0]["miss_distance"]["miles"] }
-            asteroid = Asteroid.new(asteroid_hash)
+            asteroid = Asteroid.find_by_id(asteroid_hash[:id]) || Asteroid.new(asteroid_hash) 
             pass = Pass.new("date_search", asteroid, pass_hash)
         end
     end
