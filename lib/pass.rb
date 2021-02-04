@@ -37,10 +37,9 @@ class Pass
     def self.next_visit_exists?(asteroid)
         next_visit = nil
         if self.next_visitation.include?(asteroid)
-            next_visit = self.all.find do |pass|
-                #might need to sort and pick earliest?
-                pass.asteroid == asteroid
-                Date.parse(pass.pass_date) > Date.today
+            next_visit = self.all.sort_by { |pass| Date.parse(pass.pass_date) }.find do |sorted_pass|
+                sorted_pass.asteroid == asteroid
+                Date.parse(sorted_pass.pass_date) > Date.today   
             end
         end
         next_visit
