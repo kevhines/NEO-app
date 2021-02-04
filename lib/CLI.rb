@@ -95,7 +95,7 @@ class CLI
              avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
              rows << [i+1, pass.asteroid.name, avg_diamater.round(3).to_sc, pass.distance.to_f.round().to_sc]   
          end
-        table = Terminal::Table.new :headings => ["","Name", "Avg Diameter\n(miles)", "Distance From Earch\n(miles)"], :rows => rows
+        table = Terminal::Table.new :headings => ["","Name", "Avg Diameter\n(meters)", "Distance From Earth\n(lunars)"], :rows => rows
         puts table
         puts "Press Any key for Options"
         STDIN.getch
@@ -117,7 +117,9 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        puts "\nThe asteroid designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y').underline} traveling at a speed of #{next_visit.velocity.to_f.to_sc} mph.\nIt will miss Earth by a distance of #{next_visit.distance.to_f.to_sc} miles.\n\n"
+        distance_miles = next_visit.distance.to_f * 238900
+        puts "\nThe asteroid designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y').underline} traveling at a speed of #{next_visit.velocity.to_f.round().to_sc} kilometers per second.\nIt will miss Earth by a distance of #{next_visit.distance.to_f.round(2).to_sc} lunars."
+        puts "That means it will be over #{distance_miles.round().to_sc} miles from Earth"
         self.option_menu
     end
 
