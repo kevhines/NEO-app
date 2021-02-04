@@ -20,7 +20,6 @@ class CLI
             self.exit_program
         end
         @date = checks_date(input)
-        puts "date entered, and ignored for now: " + self.date
         API.get_passes_for_date(self.date) unless Pass.exist_by_date(self.date)
         self.option_menu(true)
     end
@@ -43,8 +42,8 @@ class CLI
 
 
     def option_menu(first = false)
-        puts "You are viewing Near Earth Asteroids from #{self.date}"
-        puts "there are #{Pass.by_date(self.date).count} asteroids from that day."
+        puts "\nYou are viewing Near Earth Asteroids from #{Date.parse(self.date).strftime('%b %d %Y')}"
+        puts "there are #{Pass.by_date(self.date).count} asteroids from that day.\n"
         puts "Would you like to:"
         puts "1. See data for the 5 biggest asteroids?"
         puts "2. See data for the 5 closest asteroids?"
@@ -52,7 +51,7 @@ class CLI
         puts "4. Enter a new date?"
         puts "5. Would you like to see when one of the Asteroids listed above will fly by Earth next?" unless first
         puts "X. Enter X to exit this program."
-        puts "Please choose one of the numbers above:"
+        puts "\nPlease choose one of the numbers above:"
         input = gets.chomp
         case input.upcase
         when "1"
@@ -65,9 +64,13 @@ class CLI
             puts "Enter a new date (mm-dd-yyyy):"
             self.get_date
         when "5"
-            #this functionality is not built yet
-            puts "Please Enter the number of the asteroid you'd like to check:" # unless first
-            self.choose_asteroid
+            if first
+                puts "Please enter one of the options listed above:"
+                self.option_menu(first)
+            else
+                puts "Please Enter the number of the asteroid you'd like to check:"
+                self.choose_asteroid
+            end
         when "X", "EXIT"
             self.exit_program
         else
@@ -79,20 +82,23 @@ class CLI
 
 
     def print_passes
-        puts "name - average diameter - distance from Earth"
+        #puts "name - average diameter - distance from Earth"
         passes = []
         if self.sort == "biggest" || self.sort == "closest"
             passes = Pass.sorted_list(self.date, self.sort)
         else
             passes = Pass.by_date(self.date)
         end
+        rows = []
         passes.each_with_index do |pass,i|
              avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
-             puts "#{i+1}. #{pass.asteroid.name} - #{avg_diamater.round(3)} miles - #{pass.distance.to_f.round()} miles "   
+             rows << [i+1, pass.asteroid.name, avg_diamater.round(3).to_sc, pass.distance.to_f.round().to_sc]   
          end
-         puts "Press Any key for Options"
-         STDIN.getch
-         self.option_menu
+        table = Terminal::Table.new :headings => ["","Name", "Avg Diameter\n(miles)", "Distance From Earch\n(miles)"], :rows => rows
+        puts table
+        puts "Press Any key for Options"
+        STDIN.getch
+        self.option_menu
     end
 
     def choose_asteroid
@@ -110,7 +116,7 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        puts "\nAsteroid Designated #{next_visit.asteroid.name} will next fly by Earth on #{next_visit.pass_date} traveling at a speed of #{next_visit.velocity} mph. It will miss Earth by a distance of #{next_visit.distance} miles.\n\n"
+        puts "\nAsteroid Designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y')} traveling at a speed of #{next_visit.velocity.to_f.to_sc} mph. It will miss Earth by a distance of #{next_visit.distance.to_f.to_sc} miles.\n\n"
         self.option_menu
     end
 
