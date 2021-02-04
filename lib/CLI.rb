@@ -87,12 +87,7 @@ class CLI
 
 
     def print_passes
-        passes = []
-        if self.sort == "biggest" || self.sort == "closest"
-            passes = Pass.sorted_list(self.date, self.sort)
-        else
-            passes = Pass.by_date(self.date)
-        end
+        passes = Pass.sorted_list(self.date, self.sort)
         rows = []
         passes.each_with_index do |pass,i|
              avg_diamater = (pass.asteroid.diameter_min + pass.asteroid.diameter_max) / 2 
@@ -109,11 +104,9 @@ class CLI
         if input.upcase == "X" || input.upcase == "EXIT"
             self.exit_program
         end
-        if self.sort == "all" && input.to_i <= Pass.by_date(self.date).size && input.to_i != 0
-            asteroid = Pass.by_date(self.date)[input.to_i - 1].asteroid
-        elsif input.to_i <= Pass.sorted_list(self.date, self.sort).size && input.to_i != 0
+        if input.to_i <= Pass.sorted_list(self.date, self.sort).size && input.to_i != 0
             asteroid = Pass.sorted_list(self.date, self.sort)[input.to_i - 1].asteroid
-        else
+        else 
             puts "No Asteroid numbered #{input} in the list. Please choose another Asteroid:"
             self.choose_asteroid
         end

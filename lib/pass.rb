@@ -63,7 +63,7 @@ class Pass
         else
             sorted = passes
         end
-        sorted[0,5]
+        sort == "all" ? sorted : sorted[0,5] 
     end
 
 
