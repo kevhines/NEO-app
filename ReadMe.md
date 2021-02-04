@@ -49,8 +49,9 @@ This code gives its results in a variety of units.
 
 ## Authors
 
-  - Kevin Hines\n
-    [kevhines](https://github.com/kevhines/)
+  - Kevin Hines
+
+    github: [kevhines](https://github.com/kevhines/)
 
 ## License
 
