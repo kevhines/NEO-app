@@ -9,3 +9,4 @@ gem "httparty"
 gem "require_all"
 gem "terminal-table"
 gem 'Commatose', '~> 0.0.1'
+gem 'cli-colorize', '~> 2.0'
