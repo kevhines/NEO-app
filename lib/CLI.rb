@@ -105,10 +105,13 @@ class CLI
         if input.upcase == "X" || input.upcase == "EXIT"
             self.exit_program
         end
-        if self.sort == "all"
+        if self.sort == "all" && input.to_i <= Pass.by_date(self.date).size
             asteroid = Pass.by_date(self.date)[input.to_i - 1].asteroid
-        else
+        elsif input.to_i <= Pass.sorted_list(self.date, self.sort).size
             asteroid = Pass.sorted_list(self.date, self.sort)[input.to_i - 1].asteroid
+        else
+            puts "No Asteroid numbered #{input} in the list. Please choose another Asteroid:"
+            self.choose_asteroid
         end
         self.print_asteroid(asteroid)
     end
