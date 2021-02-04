@@ -1,99 +1,51 @@
-# Project Title
+Near Earth Object (NEO) App
 
-One Paragraph of project description goes here
-
-This initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2), but as
-I can no longer open that page as there are too many comments, I have
-moved it here.
+This app allows you to search for Asteroids that flew near Earth on any date. Enter a date and get a list of asteroids. You can also just view the 5 biggest or 5 closest asteroids. You can then choose any of the listed asteroids to see when it will next visit Earth. 
+Find an Asteroid that flew by on a important day (Wedding, Birth of a Child, Completion of your CLI Project for The Flatiron School) then see when it will come by again. That's your celestial anniversary!
 
 ## Summary
 
-  - [Getting Started](#getting-started)
-  - [Runing the tests](#running-the-tests)
-  - [Deployment](#deployment)
-  - [Built With](#built-with)
-  - [Contributing](#contributing)
-  - [Versioning](#versioning)
+  - [Installation](#Installation)
+  - [Gems Used](#gems-used)
+  - [Units](#units)  
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
 
-## Getting Started
+## Installation
 
-These instructions will get you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on how to deploy the project on a live system.
+Clone this repository.
 
-### Prerequisites
+    $ bundle install
 
-What things you need to install the software and how to install them
+Run the Executable
 
-    Give examples
+    $ bin/run
 
-### Installing
+## Gems Used
 
-A step by step series of examples that tell you how to get a development
-env running
+This code uses a number of gems, which all will install when you run the bundle install command:
 
-Say what the step will be
+gem "httparty"
+gem "require_all"
+gem "terminal-table"
+gem 'Commatose', '~> 0.0.1'
+gem 'cli-colorize', '~> 2.0'
 
-    Give the example
+## Units
 
-And repeat
+This code gives its results in a variety of units.
 
-    until finished
+meters (m)
+lunars - one lunar is the distance between Earth and the Moon and equals 238,900 miles
+kilometers per second (km/s)
+Average Diameter of an Asteroid is measure by averaging the minimum and maximum diameter of the Asteroid. Since Asteroids are not spherical this is a very approximate measurement.
 
-End with an example of getting some data out of the system or using it
-for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-    Give an example
-
-### And coding style tests
-
-Explain what these tests test and why
-
-    Give an example
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
 
 ## Authors
 
   - Kevin Hines
     [kevhines](https://github.com/kevhines/)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
-
 
 ## License
 
@@ -101,6 +53,6 @@ The gem is available as open source under the terms of the [MIT License](LICENSE
 
 ## Acknowledgments
 
-  - Hat tip to anyone whose code was used
-  - Inspiration
-  - etc
+- Thanks to Annabel Wilmerding
+- Thanks to my classmates
+- Thanks to The Flatiron School
