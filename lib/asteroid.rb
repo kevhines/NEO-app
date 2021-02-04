@@ -1,7 +1,5 @@
 class Asteroid
 
-    #object for asteroids, name, next fly by day (optional), ID
-
     attr_accessor :id, :name, :magnitude, :diameter_min, :diameter_max, :hazardous, :sentry_object
 
     @@all = []

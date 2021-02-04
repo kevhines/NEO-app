@@ -1,8 +1,6 @@
 class Pass
 
-    #each Pass connects to an Asteroid object with date, speed, and distance
     attr_accessor :asteroid, :pass_date, :velocity, :distance
-    # asteroid values: :id, :name, :magnitude, :diameter_min, :diameter_max, :hazardous, :sentry_object
 
     @@all = []
     @@all_searches = []

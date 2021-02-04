@@ -83,7 +83,6 @@ class CLI
 
 
     def print_passes
-        #puts "name - average diameter - distance from Earth"
         passes = []
         if self.sort == "biggest" || self.sort == "closest"
             passes = Pass.sorted_list(self.date, self.sort)
@@ -125,7 +124,6 @@ class CLI
             visit_info << "There is no data for future visits for the asteroid designated #{asteroid.name}."
         end
         rows = [[visit_info]]
-       # binding.pry
         table = Terminal::Table.new :rows => rows
         puts table
         self.pause_screen
