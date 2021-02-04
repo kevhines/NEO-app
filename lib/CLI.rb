@@ -53,6 +53,10 @@ class CLI
         puts "5. Would you like to see when one of the Asteroids listed above will fly by Earth next?" unless first
         puts "X. Enter X to exit this program."
         puts "\nPlease choose one of the numbers above:"
+        get_user_choice(first)
+    end
+
+    def get_user_choice(first)
         input = gets.chomp
         case input.upcase
         when "1"
@@ -66,7 +70,7 @@ class CLI
             self.get_date
         when "5"
             if first
-                puts "Please enter one of the options listed above:"
+                puts "Invalid Choice. Please enter one of the list options listed:"
                 self.option_menu(first)
             else
                 puts "Please Enter the number of the asteroid you'd like to check:"
@@ -75,7 +79,7 @@ class CLI
         when "X", "EXIT"
             self.exit_program
         else
-            puts "Please enter one of the options listed above:"
+            puts "Invalid Choice. Please enter one of the list options listed:"
             self.option_menu(first)
         end
             self.print_passes
