@@ -8,6 +8,7 @@ class CLI
     attr_accessor :sort
 
     def run_app
+        system "clear"
         puts "Welcome to the NEO app"
         puts "NEO stands for Near Earth Objects. In this case we are talking about Asteroids."
         puts "Enter a date to see what Asteroids are flying by Earth on that day (mm-dd-yyyy):"
@@ -42,9 +43,9 @@ class CLI
 
 
     def option_menu(first = false)
-        puts "\nYou are viewing Near Earth Asteroids from #{Date.parse(self.date).strftime('%b %d %Y')}"
-        puts "there are #{Pass.by_date(self.date).count} asteroids from that day.\n"
-        puts "Would you like to:"
+        puts "\nYou are viewing Near Earth Asteroids from #{Date.parse(self.date).strftime('%b %d %Y').underline}"
+        puts "there are " + Pass.by_date(self.date).count.to_s.underline + " asteroids".underline + " from that day."
+        puts "\nWould you like to:".underline
         puts "1. See data for the 5 biggest asteroids?"
         puts "2. See data for the 5 closest asteroids?"
         puts "3. See data for all of the asteroids?"
@@ -116,7 +117,7 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        puts "\nAsteroid Designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y')} traveling at a speed of #{next_visit.velocity.to_f.to_sc} mph. It will miss Earth by a distance of #{next_visit.distance.to_f.to_sc} miles.\n\n"
+        puts "\nThe asteroid designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y').underline} traveling at a speed of #{next_visit.velocity.to_f.to_sc} mph.\nIt will miss Earth by a distance of #{next_visit.distance.to_f.to_sc} miles.\n\n"
         self.option_menu
     end
 
