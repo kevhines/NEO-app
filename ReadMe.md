@@ -1,4 +1,4 @@
-Near Earth Object (NEO) App
+#Near Earth Object (NEO) App
 
 This app allows you to search for Asteroids that flew near Earth on any date. Enter a date and get a list of asteroids. You can also just view the 5 biggest or 5 closest asteroids. You can then choose any of the listed asteroids to see when it will next visit Earth.
 
