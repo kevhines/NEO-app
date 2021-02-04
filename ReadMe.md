@@ -1,6 +1,7 @@
 Near Earth Object (NEO) App
 
-This app allows you to search for Asteroids that flew near Earth on any date. Enter a date and get a list of asteroids. You can also just view the 5 biggest or 5 closest asteroids. You can then choose any of the listed asteroids to see when it will next visit Earth.\n
+This app allows you to search for Asteroids that flew near Earth on any date. Enter a date and get a list of asteroids. You can also just view the 5 biggest or 5 closest asteroids. You can then choose any of the listed asteroids to see when it will next visit Earth.
+
 Find an Asteroid that flew by on a important day (Wedding, Birth of a Child, Completion of your CLI Project for The Flatiron School) then see when it will come by again. That's your celestial anniversary!
 
 ## Summary
@@ -14,12 +15,13 @@ Find an Asteroid that flew by on a important day (Wedding, Birth of a Child, Com
 
 ## Installation
 
-Clone this repository.\n
-Install the gems:\n
+Clone this repository.
+
+Install the gems:
 
     $ bundle install
 
-Run the Executable:\n
+Run the Executable:
 
     $ bin/run
 
@@ -27,7 +29,7 @@ Follow on screen prompts. Enter "X" at anytime to exit the program.
 
 ## Gems Used
 
-This code uses a number of gems, which all will install when you run the bundle install command:\n
+This code uses a number of gems, which all will install when you run the bundle install command:
 
     $ "httparty"
     $ "require_all"
@@ -37,12 +39,12 @@ This code uses a number of gems, which all will install when you run the bundle 
 
 ## Units
 
-This code gives its results in a variety of units.\n
-\n
-meters (m)\n
-lunars - one lunar is the distance between Earth and the Moon and equals 238,900 miles\n
-kilometers per second (km/s)\n
-Average Diameter of an Asteroid is measure by averaging the minimum and maximum diameter of the Asteroid. Since Asteroids are not spherical this is a very approximate measurement.\n
+This code gives its results in a variety of units.
+
+- meters (m)
+- lunars - one lunar is the distance between Earth and the Moon and equals 238,900 miles
+- kilometers per second (km/s)
+- Average Diameter of an Asteroid is measure by averaging the minimum and maximum diameter of the Asteroid. Since Asteroids are not spherical this is a very approximate measurement.
 
 
 ## Authors
