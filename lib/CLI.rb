@@ -97,8 +97,7 @@ class CLI
          end
         table = Terminal::Table.new :headings => ["","Name", "Avg Diameter\n(meters)", "Distance From Earth\n(lunars)"], :rows => rows
         puts table
-        puts "Press Any key for Options"
-        STDIN.getch
+        self.pause_screen
         self.option_menu
     end
 
@@ -117,10 +116,25 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        distance_miles = next_visit.distance.to_f * 238900
-        puts "\nThe asteroid designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y').underline} traveling at a speed of #{next_visit.velocity.to_f.round().to_sc} kilometers per second.\nIt will miss Earth by a distance of #{next_visit.distance.to_f.round(2).to_sc} lunars."
-        puts "That means it will be over #{distance_miles.round().to_sc} miles from Earth"
+        visit_info = ""
+        if next_visit 
+            distance_miles = next_visit.distance.to_f * 238900
+            visit_info << "The asteroid designated #{next_visit.asteroid.name} will next fly by Earth on #{Date.parse(next_visit.pass_date).strftime('%b %d %Y').underline} traveling at a speed of #{next_visit.velocity.to_f.round().to_sc} kilometers per second.\nIt will miss Earth by a distance of #{next_visit.distance.to_f.round(2).to_sc} lunars."
+            visit_info << "\nThat means it will be over #{distance_miles.round().to_sc} miles from Earth."
+        else
+            visit_info << "There is no data for future visits for the asteroid designated #{asteroid.name}."
+        end
+        rows = [[visit_info]]
+       # binding.pry
+        table = Terminal::Table.new :rows => rows
+        puts table
+        self.pause_screen
         self.option_menu
+    end
+
+    def pause_screen
+        puts "Press Any key for Options"
+        STDIN.getch
     end
 
     def exit_program
