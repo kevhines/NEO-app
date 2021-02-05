@@ -28,7 +28,12 @@ class Pass
         @@next_visitation
     end
 
+    def self.pass_exists(date, asteroid)
+        self.all.find { |pass| pass.pass_date == date && pass.asteroid == asteroid}
+    end
+
     def self.exist_by_date(date)
+       # binding.pry
         self.all_searches.include?(date)
     end
 
@@ -40,6 +45,7 @@ class Pass
                 Date.parse(sorted_pass.pass_date) > Date.today   
             end
         end
+       # binding.pry
         next_visit
     end
 
