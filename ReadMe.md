@@ -49,9 +49,6 @@ This code gives its results in a variety of units.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
-
 Original Code was written by the author, Kevin Hines.
 
 See the list of
