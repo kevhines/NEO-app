@@ -115,7 +115,6 @@ class CLI
 
     def print_asteroid(asteroid)
         next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
-        binding.pry
         visit_info = ""
         if next_visit 
             distance_miles = next_visit.distance.to_f * 238900

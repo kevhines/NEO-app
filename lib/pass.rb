@@ -6,14 +6,15 @@ class Pass
     @@all_searches = []
     @@next_visitation = []
 
-    def initialize (full_date_search, asteroid, pass_hash)
+    def initialize (search_type, asteroid, pass_hash)
         self.asteroid = asteroid
         pass_hash.each do |key, value|
             self.send("#{key}=", value) if self.respond_to?("#{key}=")
         end  
         @@all << self
-        @@all_searches << self.pass_date if full_date_search == "date_search" && !self.class.exist_by_date(self.pass_date)
-        @@next_visitation << self.asteroid if full_date_search == "next_visit"
+        @@all_searches << self.pass_date if search_type == "date_search"
+        binding.pry
+        @@next_visitation << self.asteroid if search_type == "next_visit"
     end
 
     def self.all
@@ -33,7 +34,6 @@ class Pass
     end
 
     def self.exist_by_date(date)
-       # binding.pry
         self.all_searches.include?(date)
     end
 
@@ -45,7 +45,6 @@ class Pass
                 Date.parse(sorted_pass.pass_date) > Date.today   
             end
         end
-       # binding.pry
         next_visit
     end
 
