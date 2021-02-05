@@ -12,7 +12,7 @@ class API
             asteroid_hash = {:id => pass["id"], :name => pass["name"], :magnitude => pass["absolute_magnitude_h"] , :diameter_min => pass["estimated_diameter"]["meters"]["estimated_diameter_min"], :diameter_max => pass["estimated_diameter"]["miles"]["estimated_diameter_max"], :hazardous => pass["is_potentially_hazardous_asteroid"], :sentry_object => pass["is_sentry_object"] }
             pass_hash = {:pass_date => date, :velocity => pass["close_approach_data"][0]["relative_velocity"]["kilometers_per_second"], :distance => pass["close_approach_data"][0]["miss_distance"]["lunar"] }
             asteroid = Asteroid.find_by_id(asteroid_hash[:id]) || Asteroid.new(asteroid_hash) 
-            pass = Pass.pass_exists(date, asteroid) || Pass.new("date_search", asteroid, pass_hash) 
+            pass = Pass.pass_exists?(date, asteroid) || Pass.new("date_search", asteroid, pass_hash) 
         end
     end
 

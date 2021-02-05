@@ -28,7 +28,7 @@ class Pass
         @@next_visitation
     end
 
-    def self.pass_exists(date, asteroid)
+    def self.pass_exists?(date, asteroid)
         self.all.find { |pass| pass.pass_date == date && pass.asteroid == asteroid}
     end
 
