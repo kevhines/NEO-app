@@ -13,7 +13,6 @@ class Pass
         end  
         @@all << self
         @@all_searches << self.pass_date if search_type == "date_search"
-        binding.pry
         @@next_visitation << self.asteroid if search_type == "next_visit"
     end
 
