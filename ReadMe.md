@@ -9,6 +9,7 @@ Find an Asteroid that flew by on a important day (Wedding, Birth of a Child, Com
   - [Installation](#Installation)
   - [Gems Used](#gems-used)
   - [Units](#units)  
+  - [Contributing](#contributing)
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
@@ -45,6 +46,18 @@ This code gives its results in a variety of units.
 - lunars - one lunar is the distance between Earth and the Moon and equals 238,900 miles
 - kilometers per second (km/s)
 - Average Diameter of an Asteroid is measure by averaging the minimum and maximum diameter of the Asteroid. Since Asteroids are not spherical this is a very approximate measurement.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
+of conduct, and the process for submitting pull requests to us.
+
+Original Code was written by the author, Kevin Hines.
+
+See the list of
+[contributors](https://github.com/kevhines/NEO-app/graphs/contributors)
+who participated in this project.
+
 
 
 ## Authors
