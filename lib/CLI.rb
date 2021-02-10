@@ -21,8 +21,18 @@ class CLI
             self.exit_program
         end
         @date = checks_date(input)
-        API.get_passes_for_date(self.date) unless Pass.exist_by_date(self.date)
+        self.create_passes_from_API unless Pass.exist_by_date(self.date)
         self.option_menu(true)
+    end
+
+    def create_passes_from_API
+            response = API.get_passes_for_date(self.date) 
+            response["near_earth_objects"][date].each do |pass|  
+                asteroid_hash = {:id => pass["id"], :name => pass["name"], :magnitude => pass["absolute_magnitude_h"] , :diameter_min => pass["estimated_diameter"]["meters"]["estimated_diameter_min"], :diameter_max => pass["estimated_diameter"]["meters"]["estimated_diameter_max"], :hazardous => pass["is_potentially_hazardous_asteroid"], :sentry_object => pass["is_sentry_object"] }
+                pass_hash = {:pass_date => date, :velocity => pass["close_approach_data"][0]["relative_velocity"]["kilometers_per_second"], :distance => pass["close_approach_data"][0]["miss_distance"]["lunar"] }
+                asteroid = Asteroid.find_by_id(asteroid_hash[:id]) || Asteroid.new(asteroid_hash) 
+                pass = Pass.pass_exists?(date, asteroid) || Pass.new("date_search", asteroid, pass_hash) 
+            end
     end
 
     def checks_date(input)
@@ -113,8 +123,14 @@ class CLI
         self.print_asteroid(asteroid)
     end
 
+    def create_asteroid_from_API(asteroid)
+        pass_hash = API.get_asteroid_visits(asteroid)
+        pass_hash ? Pass.new("next_visit", asteroid, pass_hash) : nil
+    end
+
+
     def print_asteroid(asteroid)
-        next_visit = Pass.next_visit_exists?(asteroid) || API.get_asteroid_visits(asteroid)
+        next_visit = Pass.next_visit_exists?(asteroid) || self.create_asteroid_from_API(asteroid) 
         visit_info = ""
         if next_visit 
             distance_miles = next_visit.distance.to_f * 238900
