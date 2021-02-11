@@ -16,6 +16,19 @@ class Pass
         @@next_visitation << self.asteroid if search_type == "next_visit"
     end
 
+
+    def self.create_table
+        sql = <<-SQL
+            CREATE TABLE IF NOT EXISTS passes
+                (id INTEGER PRIMARY KEY,
+                asteroid_id INTEGER,
+                pass_date TEXT,
+                velocity TEXT,
+                distance TEXT);
+        SQL
+        DB[:conn].execute(sql)
+    end
+
     def self.all
         @@all
     end

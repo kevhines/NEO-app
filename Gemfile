@@ -11,3 +11,4 @@ gem "terminal-table"
 gem 'io-console', '~> 0.4.2'
 gem 'Commatose', '~> 0.0.1'
 gem 'cli-colorize', '~> 2.0'
+gem 'sqlite3'

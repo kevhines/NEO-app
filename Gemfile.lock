@@ -17,6 +17,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     require_all (3.0.0)
+    sqlite3 (1.4.2)
     terminal-table (3.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     unicode-display_width (1.7.0)
@@ -31,6 +32,7 @@ DEPENDENCIES
   io-console (~> 0.4.2)
   pry
   require_all
+  sqlite3
   terminal-table
 
 BUNDLED WITH

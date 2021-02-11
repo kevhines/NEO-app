@@ -2,5 +2,7 @@
 
 require_relative('../config/environment.rb')
 
+Asteroid.create_table
+Pass.create_table
 CLI.new.run_app
 
